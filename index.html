@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAGALLANES | Motores de Aviación</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="#" class="logo">
+        <img src="src/assets/logo/logo.avif" alt="Magallanes Logo" class="logo-img">
+        <span class="logo-text">MAGALLANES</span>
+      </a>
+
+      <nav>
+        <ul>
+          <li><a href="#hero" data-i18n="nav.home">Inicio</a></li>
+          <li><a href="#innovacion" data-i18n="nav.innov">Innovación</a></li>
+          <li><a href="#ficha" data-i18n="nav.specs">Ficha Técnica</a></li>
+          <li><a href="#contacto" data-i18n="nav.contact">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="es">ES</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="hero" class="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <h1 data-i18n="hero.title">MAGALLANES</h1>
+        <h2 class="hero-subtitle" data-i18n="hero.subtitle">MOTORES DE AVIACIÓN</h2>
+        <div class="highlight-line"></div>
+        <p data-i18n="hero.desc">Propulsión aeronáutica de próxima generación. Potencia, seguridad y diseño modular.</p>
+        <a href="#ficha" class="btn primary-btn" data-i18n="hero.cta">Ver Especificaciones</a>
+      </div>
+      <div class="hero-visual">
+        <div class="tech-frame">
+          <img src="src/assets/2-2048x1539.png" alt="Motor Magallanes TM-2600" class="hero-img">
+          <div class="frame-corner c-tl"></div>
+          <div class="frame-corner c-tr"></div>
+          <div class="frame-corner c-bl"></div>
+          <div class="frame-corner c-br"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Innovacion -->
+  <section id="innovacion" class="section">
+    <div class="container">
+      <h2 class="section-title" data-i18n="innov.title">Innovación y Desarrollo</h2>
+      <div class="grid-3">
+        <article class="card">
+          <h3 data-i18n="innov.c1_title">Arquitectura Modular</h3>
+          <p data-i18n="innov.c1_desc">Diseño innovador que mejora la potencia y duración.</p>
+        </article>
+        <article class="card">
+          <h3 data-i18n="innov.c2_title">Calidad Certificada</h3>
+          <p data-i18n="innov.c2_desc">Componentes de proveedores líderes y mano de obra calificada.</p>
+        </article>
+        <article class="card">
+          <h3 data-i18n="innov.c3_title">Seguridad Operacional</h3>
+          <p data-i18n="innov.c3_desc">Doble encendido con magneto aeronáutico.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ficha Tecnica -->
+  <section id="ficha" class="section">
+    <div class="container">
+      <h2 class="section-title" data-i18n="specs.title">Ficha Técnica</h2>
+      <div class="specs-container">
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="specs.cylinders">Cilindros</span>
+          <span class="spec-value" data-i18n="specs.val_cyl">6</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="specs.disp">Cilindrada</span>
+          <span class="spec-value" data-i18n="specs.val_disp">2600 cc</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="specs.config">Configuración</span>
+          <span class="spec-value" data-i18n="specs.val_config">Boxer DOHC</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="specs.cooling">Enfriamiento</span>
+          <span class="spec-value" data-i18n="specs.val_cooling">Aire (Aircooled)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="specs.carb">Carburador</span>
+          <span class="spec-value" data-i18n="specs.val_carb">Marvel Schebler</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="specs.prop_shaft">Árbol Portahélice</span>
+          <span class="spec-value" data-i18n="specs.val_prop_shaft">Con Reductor</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="specs.flange">Platina</span>
+          <span class="spec-value" data-i18n="specs.val_flange">SAE2 Estándar</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="specs.ignition">Encendido</span>
+          <span class="spec-value" data-i18n="specs.val_ignition">Doble</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="specs.spark">Sistema</span>
+          <span class="spec-value" data-i18n="specs.val_spark">Magneto y Bujías</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="specs.sump">Lubricación</span>
+          <span class="spec-value" data-i18n="specs.val_sump">Carter Seco</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="specs.prop_config">Configuración</span>
+          <span class="spec-value" data-i18n="specs.val_prop_config">Tractor o Pusher</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="specs.reg">Normativa</span>
+          <span class="spec-value" data-i18n="specs.val_reg">FAR 33</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </section>
+
+  <!-- Galeria -->
+  <section id="galeria" class="section gallery-section">
+    <div class="container">
+      <h2 class="section-title" data-i18n="gallery.title">Galería de Imágenes</h2>
+
+      <div class="gallery-container">
+        <div id="gallery-track" class="gallery-track">
+          <!-- JS will populate this -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Testimonios -->
+  <section id="testimonios" class="section section-dark">
+    <div class="container">
+      <h2 class="section-title">Presentaciones y Testimonios</h2>
+
+      <!-- Video -->
+      <div class="testimonial-video">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/1wWc72pr69A" title="Magallanes TM-2600-R Motor Presentation"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Testimonial Cards -->
+      <div class="testimonial-grid">
+        <!-- Card 1 -->
+        <div class="testimonial-card">
+          <h3>Destacados de la 40ª Convención EAA</h3>
+          <p class="testimonial-subtitle">Raul Argentino Magallanes Motor TM-2600-R</p>
+          <p class="testimonial-text">
+            Luego de su exposición en el Hangar 3 de la EAA, Magallanes realizó la puesta en marcha del prototipo de su
+            motor con hélice, montado sobre un banco de pruebas móvil. El TM-2600-R es un motor aeronáutico "boxer" de 6
+            cilindros, de 4 tiempos de 2600 cc, refrigerado por aire con doble árbol de levas a la cabeza. Con doble
+            sistema de encendido con magneto. La potencia que puede suministrar estaría entre los 120 a 150 hp.
+          </p>
+          <a href="https://www.facebook.com/watch/?v=643787626960788&ref=sharing" target="_blank"
+            rel="noopener noreferrer" class="testimonial-link">
+            Ver más en Facebook →
+          </a>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="testimonial-card">
+          <h3>Presentación en Chapter 722</h3>
+          <p class="testimonial-subtitle">Desarrollo Integral Motor 6 Cilindros Opuestos</p>
+          <p class="testimonial-text">
+            Mediante una exposición a cargo de Lic. Raúl Argentino Magallanes, denominada "Desarrollo integral motor 6
+            cilindros opuestos para uso aeronáutico", llevada a cabo en el pabellón de proyectos, del Chapter 722. La
+            organización I+D, permitió que el público en general, acceda a conocer detalles del prometedor sistema
+            propulsivo.
+          </p>
+          <a href="https://www.fullaviacion.com.ar/presentacion-del-motor-prototipo-tm-2600-r/" target="_blank"
+            rel="noopener noreferrer" class="testimonial-link">
+            Leer artículo completo →
+          </a>
+        </div>
+
+        <!-- Card 3 - CAIA Congress -->
+        <div class="testimonial-card testimonial-card-image">
+          <div class="testimonial-image-wrapper">
+            <img src="/src/assets/presentaciones/Caia1.jpg"
+              alt="CAIA 8 - Congreso Argentino de Ingeniería Aeronáutica" />
+          </div>
+          <p class="testimonial-caption">
+            Estuvimos presentes en el 8vo. Congreso Argentino de Ingeniería Aeronáutica (CAIA 8)
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="section">
+    <div class="container">
+      <h2 class="section-title" data-i18n="contact.title">Contacto</h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p data-i18n="contact.desc">¿Interesado? Contáctenos.</p>
+          <br>
+          <div class="contact-item">
+            <strong>Email:</strong>
+            <a href="mailto:contacto@magallanes.com.ar" data-i18n="contact.email">contacto@magallanes.com.ar</a>
+          </div>
+          <div class="contact-item">
+            <strong>Tel:</strong>
+            <a href="tel:+543518812226" data-i18n="contact.phone">+54 351 8812226</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Magallanes Motores de Aviación. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Fullscreen Image">
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script type="module" src="js/gallery.js"></script>
+</body>
+
+</html>
