@@ -234,9 +234,13 @@
             <i class="fas fa-times"></i>
           </button>
           <h3 data-i18n="docs.title">Documentación Técnica</h3>
-          <div class="pdf-mini-container">
+          <div class="pdf-mini-container" id="pdf-mini-click" style="cursor:pointer;position:relative">
             <iframe src="src/assets/docs/2024 - Caracteristicas Tecnicas TM-2600-R.pdf#toolbar=0&navpanes=0"
-              class="pdf-mini-iframe"></iframe>
+              class="pdf-mini-iframe" style="pointer-events:none"></iframe>
+            <div class="pdf-expand-overlay">
+              <i class="fas fa-expand"></i>
+              <span>Ver en pantalla completa</span>
+            </div>
           </div>
           <a href="src/assets/docs/2024 - Caracteristicas Tecnicas TM-2600-R.pdf" download
             class="btn primary-btn download-btn-mini">
@@ -298,6 +302,17 @@
     <img id="lightbox-img" alt="Imagen ampliada">
   </div>
 
+  <!-- PDF Fullscreen Lightbox -->
+  <div id="pdf-lightbox" class="pdf-lightbox">
+    <button class="pdf-lightbox-close" id="pdf-lightbox-close" aria-label="Cerrar">&times;</button>
+    <div class="pdf-lightbox-content">
+      <iframe id="pdf-lightbox-iframe" src="" class="pdf-lightbox-iframe"></iframe>
+    </div>
+    <a id="pdf-lightbox-download" href="" download class="btn primary-btn pdf-lightbox-download">
+      <i class="fas fa-download"></i> Descargar PDF
+    </a>
+  </div>
+
 
   <script src="js/i18n.js"></script>
   <script type="module" src="js/gallery.js"></script>
@@ -317,6 +332,39 @@
         hamburgerBtn.classList.remove('active');
         mainNav.classList.remove('open');
       });
+    });
+  </script>
+  <script>
+    // PDF Fullscreen Lightbox
+    const pdfSrc = 'src/assets/docs/2024 - Caracteristicas Tecnicas TM-2600-R.pdf';
+    const pdfMiniClick = document.getElementById('pdf-mini-click');
+    const pdfLightbox = document.getElementById('pdf-lightbox');
+    const pdfLightboxIframe = document.getElementById('pdf-lightbox-iframe');
+    const pdfLightboxClose = document.getElementById('pdf-lightbox-close');
+    const pdfLightboxDownload = document.getElementById('pdf-lightbox-download');
+
+    function openPdfFullscreen() {
+      pdfLightboxIframe.src = pdfSrc;
+      pdfLightboxDownload.href = pdfSrc;
+      pdfLightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePdfFullscreen() {
+      pdfLightbox.classList.remove('active');
+      pdfLightboxIframe.src = '';
+      document.body.style.overflow = '';
+    }
+
+    if (pdfMiniClick) pdfMiniClick.addEventListener('click', openPdfFullscreen);
+    if (pdfLightboxClose) pdfLightboxClose.addEventListener('click', closePdfFullscreen);
+    if (pdfLightbox) {
+      pdfLightbox.addEventListener('click', (e) => {
+        if (e.target === pdfLightbox) closePdfFullscreen();
+      });
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && pdfLightbox.classList.contains('active')) closePdfFullscreen();
     });
   </script>
 </body>
