@@ -367,6 +367,21 @@
       if (e.key === 'Escape' && pdfLightbox.classList.contains('active')) closePdfFullscreen();
     });
   </script>
+  <script>
+    // Hero Image Lightbox
+    const heroVisual = document.querySelector('.tech-frame');
+    const heroImg = document.querySelector('.hero-img');
+    const mainLightbox = document.getElementById('lightbox');
+    const mainLightboxImg = document.getElementById('lightbox-img');
+
+    if (heroVisual && heroImg && mainLightbox && mainLightboxImg) {
+      heroVisual.addEventListener('click', () => {
+        mainLightboxImg.src = heroImg.src;
+        mainLightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    }
+  </script>
 </body>
 
 </html>
