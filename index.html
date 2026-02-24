@@ -29,7 +29,13 @@
         <span class="logo-text">MAGALLANES</span>
       </a>
 
-      <nav>
+      <button class="hamburger" id="hamburger-btn" aria-label="Menú">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav id="main-nav">
         <ul>
           <li><a href="#hero" data-i18n="nav.home">Inicio</a></li>
           <li><a href="#innovacion" data-i18n="nav.innov">Innovación</a></li>
@@ -286,14 +292,29 @@
     </div>
   </footer>
 
-  <!-- Lightbox -->
-  <div id="lightbox" class="lightbox">
-    <span class="lightbox-close">&times;</span>
-    <img id="lightbox-img" src="" alt="Fullscreen Image">
-  </div>
+
+
 
   <script src="js/i18n.js"></script>
   <script type="module" src="js/gallery.js"></script>
+  <script>
+    // Mobile hamburger menu toggle
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mainNav = document.getElementById('main-nav');
+
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('active');
+      mainNav.classList.toggle('open');
+    });
+
+    // Close menu when a nav link is clicked
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburgerBtn.classList.remove('active');
+        mainNav.classList.remove('open');
+      });
+    });
+  </script>
 </body>
 
 </html>
