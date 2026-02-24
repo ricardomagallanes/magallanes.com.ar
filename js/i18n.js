@@ -4,6 +4,7 @@ const translations = {
             home: "Inicio",
             specs: "Ficha Técnica",
             innov: "Innovación",
+            docs: "Documentación",
             contact: "Contacto"
         },
         hero: {
@@ -48,6 +49,11 @@ const translations = {
             reg: "Marco Regulatorio",
             val_reg: "FAR 33"
         },
+        docs: {
+            title: "Documentación Técnica",
+            desc: "Explore el detalle completo de las capacidades de nuestros motores.",
+            download: "Descargar PDF"
+        },
         gallery: {
             title: "Galería"
         },
@@ -55,7 +61,8 @@ const translations = {
             title: "Contacto",
             desc: "¿Interesado en nuestros motores? Contáctenos para más información sobre disponibilidad y pedidos.",
             email: "contacto@magallanes.com.ar",
-            phone: "+54 351 8812226"
+            phone: "+54 351 8812226",
+            social_title: "Seguinos en nuestras redes"
         }
     },
     en: {
@@ -63,6 +70,7 @@ const translations = {
             home: "Home",
             specs: "Tech Specs",
             innov: "Innovation",
+            docs: "Documentation",
             contact: "Contact"
         },
         hero: {
@@ -107,6 +115,11 @@ const translations = {
             reg: "Regulatory Framework",
             val_reg: "FAR 33"
         },
+        docs: {
+            title: "Technical Documentation",
+            desc: "Explore the full details of our engines' capabilities.",
+            download: "Download PDF"
+        },
         gallery: {
             title: "Gallery"
         },
@@ -114,7 +127,8 @@ const translations = {
             title: "Contact",
             desc: "Interested in our engines? Contact us for more information on availability and orders.",
             email: "contacto@magallanes.com.ar",
-            phone: "+54 351 8812226"
+            phone: "+54 351 8812226",
+            social_title: "Follow us on social media"
         }
     }
 };

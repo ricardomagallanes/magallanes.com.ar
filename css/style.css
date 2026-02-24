@@ -900,6 +900,60 @@ body::before {
     font-weight: 500;
 }
 
+/* PDF Card Mini-Preview Styling */
+.pdf-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 5px;
+    transition: color 0.3s ease;
+    z-index: 10;
+}
+
+.card-close-btn:hover {
+    color: var(--color-accent-bright);
+}
+
+.pdf-mini-container {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f8fafc;
+    border: 1px solid var(--color-border);
+}
+
+.pdf-mini-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    /* Interacción habilitada para scroll */
+}
+
+
+.download-btn-mini {
+    width: fit-content;
+    /* Achicado de 100% */
+    padding: 0.5rem 1rem;
+    align-self: center;
+    margin-top: auto;
+    font-size: 0.85rem;
+}
+
 /* Footer */
 footer {
     padding: 3rem 0;
