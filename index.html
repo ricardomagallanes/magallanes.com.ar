@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="css/style.css">
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Flags -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
 </head>
 
 <body>
@@ -25,7 +27,7 @@
   <header>
     <div class="container">
       <a href="#" class="logo">
-        <img src="src/assets/logo/logo_mag_2026_nobg.png" alt="Magallanes Logo" class="logo-img">
+        <img src="assets/logo/logo_mag_2026_nobg.png" alt="Magallanes Logo" class="logo-img">
         <span class="logo-text">MAGALLANES</span>
       </a>
 
@@ -44,9 +46,35 @@
         </ul>
       </nav>
 
-      <div class="lang-switch">
-        <button class="lang-btn active" data-lang="es">ES</button>
-        <button class="lang-btn" data-lang="en">EN</button>
+      <div class="lang-dropdown">
+        <button class="lang-dropdown-btn">
+          <span class="btn-label" data-i18n="nav.lang">Idioma</span>
+          <div class="current-lang">
+            <span id="current-lang-flag" class="fi fi-es"></span>
+            <span id="current-lang-label">Español</span>
+          </div>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="lang-options">
+          <div class="lang-option" data-lang="es">
+            <span class="fi fi-es"></span> Español
+          </div>
+          <div class="lang-option" data-lang="en">
+            <span class="fi fi-us"></span> English
+          </div>
+          <div class="lang-option" data-lang="de">
+            <span class="fi fi-de"></span> Deutsch
+          </div>
+          <div class="lang-option" data-lang="it">
+            <span class="fi fi-it"></span> Italiano
+          </div>
+          <div class="lang-option" data-lang="pt">
+            <span class="fi fi-br"></span> Português
+          </div>
+          <div class="lang-option" data-lang="ja">
+            <span class="fi fi-jp"></span> 日本語
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -64,7 +92,7 @@
       </div>
       <div class="hero-visual">
         <div class="tech-frame">
-          <img src="src/assets/2-2048x1539.png" alt="Motor Magallanes TM-2600" class="hero-img">
+          <img src="assets/2-2048x1539.png" alt="Motor Magallanes TM-2600" class="hero-img">
           <div class="frame-corner c-tl"></div>
           <div class="frame-corner c-tr"></div>
           <div class="frame-corner c-bl"></div>
@@ -219,8 +247,7 @@
         <!-- Card 3 - CAIA Congress -->
         <div class="testimonial-card testimonial-card-image">
           <div class="testimonial-image-wrapper">
-            <img src="/src/assets/presentaciones/Caia1.jpg"
-              alt="CAIA 8 - Congreso Argentino de Ingeniería Aeronáutica" />
+            <img src="/assets/presentaciones/Caia1.jpg" alt="CAIA 8 - Congreso Argentino de Ingeniería Aeronáutica" />
           </div>
           <p class="testimonial-caption">
             Estuvimos presentes en el 8vo. Congreso Argentino de Ingeniería Aeronáutica (CAIA 8)
@@ -235,14 +262,14 @@
           </button>
           <h3 data-i18n="docs.title">Documentación Técnica</h3>
           <div class="pdf-mini-container" id="pdf-mini-click" style="cursor:pointer;position:relative">
-            <iframe src="src/assets/docs/2024 - Caracteristicas Tecnicas TM-2600-R.pdf#toolbar=0&navpanes=0"
+            <iframe src="assets/docs/2024 - Caracteristicas Tecnicas TM-2600-R.pdf#toolbar=0&navpanes=0"
               class="pdf-mini-iframe" style="pointer-events:none"></iframe>
             <div class="pdf-expand-overlay">
               <i class="fas fa-expand"></i>
               <span>Ver en pantalla completa</span>
             </div>
           </div>
-          <a href="src/assets/docs/2024 - Caracteristicas Tecnicas TM-2600-R.pdf" download
+          <a href="assets/docs/2024 - Caracteristicas Tecnicas TM-2600-R.pdf" download
             class="btn primary-btn download-btn-mini">
             <i class="fas fa-download"></i> <span data-i18n="docs.download">Descargar PDF</span>
           </a>
@@ -314,10 +341,11 @@
   </div>
 
 
-  <script src="js/i18n.js"></script>
+  <script type="module" src="js/i18n.js"></script>
   <script type="module" src="js/gallery.js"></script>
   <script>
     // Mobile hamburger menu toggle
+    console.log("Inline scripts loading...");
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const mainNav = document.getElementById('main-nav');
 
@@ -336,7 +364,7 @@
   </script>
   <script>
     // PDF Fullscreen Lightbox
-    const pdfSrc = 'src/assets/docs/2024 - Caracteristicas Tecnicas TM-2600-R.pdf';
+    const pdfSrc = 'assets/docs/2024 - Caracteristicas Tecnicas TM-2600-R.pdf';
     const pdfMiniClick = document.getElementById('pdf-mini-click');
     const pdfLightbox = document.getElementById('pdf-lightbox');
     const pdfLightboxIframe = document.getElementById('pdf-lightbox-iframe');
@@ -375,10 +403,29 @@
     const mainLightboxImg = document.getElementById('lightbox-img');
 
     if (heroVisual && heroImg && mainLightbox && mainLightboxImg) {
+      function closeMainLightbox() {
+        mainLightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
       heroVisual.addEventListener('click', () => {
         mainLightboxImg.src = heroImg.src;
         mainLightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
+      });
+
+      // Close button logic
+      const closeBtn = mainLightbox.querySelector('.lightbox-close');
+      if (closeBtn) closeBtn.addEventListener('click', closeMainLightbox);
+
+      // Background click logic
+      mainLightbox.addEventListener('click', (e) => {
+        if (e.target === mainLightbox) closeMainLightbox();
+      });
+
+      // Escape key logic
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMainLightbox();
       });
     }
   </script>

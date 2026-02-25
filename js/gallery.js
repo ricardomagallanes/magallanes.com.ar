@@ -1,78 +1,111 @@
+console.log("Gallery Script Loaded");
 
-// Dynamic Image Import using Vite
-const modules = import.meta.glob('/src/assets/galeria/*.{jpg,jpeg,png,svg}', { eager: true });
+// Image paths relative to the public root
+const galleryImages = [
+    'assets/galeria/2.jpg',
+    'assets/galeria/3.jpg',
+    'assets/galeria/4.jpg',
+    'assets/galeria/65-1024x769.jpg'
+];
 
-const galleryTrack = document.getElementById('gallery-track');
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-const closeBtn = document.querySelector('.lightbox-close');
+function initGallery() {
+    console.log("Initializing gallery...");
+    const galleryTrack = document.getElementById('gallery-track');
 
-let images = [];
+    if (!galleryTrack) {
+        console.error("Error: Element 'gallery-track' not found!");
+        return;
+    }
 
-// 1. Render Gallery (Marquee)
-function renderGallery() {
-    if (!galleryTrack) return;
+    // Clear track
+    galleryTrack.innerHTML = '';
 
-    // Load images
-    Object.values(modules).forEach((module) => {
-        images.push(module.default);
-    });
+    // If no images defined, show placeholder
+    if (galleryImages.length === 0) {
+        console.warn("No images in galleryImages array.");
+        return;
+    }
 
-    if (images.length === 0) return;
+    // Duplicate sets for infinite marquee effect
+    // We need enough items to fill the screen twice
+    const setsToCreate = 4;
 
-    // For infinite marquee, duplicate the list enough times to fill width + buffer
-    // Simplest approach: Duplicate list X times. 
-    // The CSS animation moves -50%, so we need at least 2 full sets.
+    for (let i = 0; i < setsToCreate; i++) {
+        galleryImages.forEach(src => {
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
 
-    // Create first set
-    images.forEach(src => createItem(src));
-    // Create duplicate set
-    images.forEach(src => createItem(src));
-    // Another one for good measure on wide screens
-    images.forEach(src => createItem(src));
+            const img = document.createElement('img');
+            // Use absolute path from root
+            img.src = src.startsWith('/') ? src : '/' + src;
+            img.alt = "Galería Magallanes";
+            img.loading = "lazy";
+
+            img.onerror = () => {
+                console.error("Failed to load image:", img.src);
+            };
+
+            item.appendChild(img);
+            item.onclick = () => openLightbox(img.src);
+            galleryTrack.appendChild(item);
+        });
+    }
+
+    console.log("Gallery populated with", galleryTrack.children.length, "items.");
 }
 
-function createItem(src) {
-    const item = document.createElement('div');
-    item.className = 'gallery-item';
-
-    const img = document.createElement('img');
-    img.src = src;
-    img.alt = "Galería Magallanes";
-    img.loading = "lazy";
-
-    // Click to Open Lightbox
-    item.addEventListener('click', () => openLightbox(src));
-
-    item.appendChild(img);
-    galleryTrack.appendChild(item);
-}
-
-// 2. Lightbox Logic
 function openLightbox(src) {
-    if (!lightbox || !lightboxImg) return;
+    console.log("Opening lightbox for:", src);
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    if (!lightbox || !lightboxImg) {
+        console.error("Lightbox elements not found");
+        return;
+    }
+
     lightboxImg.src = src;
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
     if (!lightbox) return;
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
 }
 
-if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+// Global Event Listeners for Lightbox
+function setupLightboxListeners() {
+    const lightbox = document.getElementById('lightbox');
+    const closeBtn = document.querySelector('.lightbox-close');
 
-if (lightbox) {
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) closeLightbox();
+    if (closeBtn) {
+        closeBtn.onclick = (e) => {
+            e.stopPropagation();
+            closeLightbox();
+        };
+    }
+
+    if (lightbox) {
+        lightbox.onclick = (e) => {
+            if (e.target === lightbox) closeLightbox();
+        };
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
     });
 }
 
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLightbox();
-});
-
 // Init
-document.addEventListener('DOMContentLoaded', renderGallery);
+// ES Modules are deferred, but we check readyState to be safe
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initGallery();
+    setupLightboxListeners();
+} else {
+    document.addEventListener('DOMContentLoaded', () => {
+        initGallery();
+        setupLightboxListeners();
+    });
+}
