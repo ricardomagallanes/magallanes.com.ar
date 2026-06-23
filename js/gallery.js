@@ -36,8 +36,8 @@ function initGallery() {
             item.className = 'gallery-item';
 
             const img = document.createElement('img');
-            // Use absolute path from root
-            img.src = src.startsWith('/') ? src : '/' + src;
+            // Use relative path
+            img.src = src;
             img.alt = "Galería Magallanes";
             img.loading = "lazy";
 
