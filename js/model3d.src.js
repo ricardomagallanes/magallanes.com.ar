@@ -167,6 +167,11 @@ class EngineViewer3D {
         this.engineGroup.add(root);
         this.scene.add(this.engineGroup);
 
+        // Ensure 100% is displayed
+        if (progressEl) {
+          progressEl.textContent = '100%';
+        }
+
         // Hide loading screen with fade
         if (loadingEl) {
           loadingEl.style.opacity = '0';
@@ -176,8 +181,10 @@ class EngineViewer3D {
         }
       },
       (xhr) => {
-        if (xhr.lengthComputable && progressEl) {
-          const percent = Math.round((xhr.loaded / xhr.total) * 100);
+        if (progressEl) {
+          const expectedTotal = 6879064;
+          const total = (xhr.total && xhr.total >= xhr.loaded) ? xhr.total : expectedTotal;
+          const percent = Math.min(100, Math.max(0, Math.round((xhr.loaded / total) * 100)));
           progressEl.textContent = `${percent}%`;
         }
       },
