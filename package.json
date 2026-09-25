@@ -4,8 +4,8 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "vite",
-        "build": "tsc && vite build",
+        "build:model": "esbuild js/model3d.src.js --bundle --format=esm --minify --outfile=js/model3d.js",
+        "build": "npm run build:model && tsc && vite build && node -e \"const fs=require('fs'); fs.mkdirSync('dist/assets/modelos', {recursive:true}); fs.copyFileSync('assets/modelos/TM-2600-R.glb', 'dist/assets/modelos/TM-2600-R.glb');\"",
         "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview"
     },

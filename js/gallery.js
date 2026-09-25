@@ -29,7 +29,7 @@ function initDynamicGallery() {
   if (counterTotal) counterTotal.textContent = String(galleryList.length).padStart(2, '0');
 
   // Build interactive thumbnails
-  thumbsContainer.innerHTML = '';
+  thumbsContainer.replaceChildren();
   galleryList.forEach((src, idx) => {
     const thumbBtn = document.createElement('button');
     thumbBtn.type = 'button';
