@@ -1,111 +1,196 @@
-console.log("Gallery Script Loaded");
+/**
+ * MAGALLANES AERO - DYNAMIC PRESENTATION GALLERY
+ * Clean, dynamic display with active stage, interactive thumbnails, counter, navigation & lightbox.
+ * No artificial or fabricated text.
+ */
 
-// Image paths relative to the public root
-const galleryImages = [
-    'assets/galeria/2.jpg',
-    'assets/galeria/3.jpg',
-    'assets/galeria/4.jpg',
-    'assets/galeria/65-1024x769.jpg'
+const galleryList = [
+  'assets/galeria/2.jpg',
+  'assets/galeria/3.jpg',
+  'assets/galeria/4.jpg',
+  'assets/galeria/65-1024x769.jpg'
 ];
 
-function initGallery() {
-    console.log("Initializing gallery...");
-    const galleryTrack = document.getElementById('gallery-track');
+let activeIndex = 0;
+let autoPlayInterval = null;
 
-    if (!galleryTrack) {
-        console.error("Error: Element 'gallery-track' not found!");
-        return;
+function initDynamicGallery() {
+  const mainStageImg = document.getElementById('gallery-stage-img');
+  const thumbsContainer = document.getElementById('gallery-thumbs-track');
+  const counterCurrent = document.getElementById('gallery-counter-current');
+  const counterTotal = document.getElementById('gallery-counter-total');
+  const prevBtn = document.getElementById('gallery-prev-btn');
+  const nextBtn = document.getElementById('gallery-next-btn');
+  const fullscreenBtn = document.getElementById('gallery-fullscreen-btn');
+  const stageFrame = document.getElementById('gallery-stage-frame');
+
+  if (!mainStageImg || !thumbsContainer) return;
+
+  if (counterTotal) counterTotal.textContent = String(galleryList.length).padStart(2, '0');
+
+  // Build interactive thumbnails
+  thumbsContainer.innerHTML = '';
+  galleryList.forEach((src, idx) => {
+    const thumbBtn = document.createElement('button');
+    thumbBtn.type = 'button';
+    thumbBtn.className = `gallery-thumb-item ${idx === 0 ? 'active' : ''}`;
+    thumbBtn.setAttribute('aria-label', `Imagen ${idx + 1}`);
+
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = `Motor Magallanes ${idx + 1}`;
+    img.loading = 'lazy';
+
+    thumbBtn.appendChild(img);
+    thumbBtn.addEventListener('click', () => {
+      setSlide(idx);
+      resetAutoPlay();
+    });
+
+    thumbsContainer.appendChild(thumbBtn);
+  });
+
+  function setSlide(idx) {
+    if (idx < 0 || idx >= galleryList.length) return;
+    activeIndex = idx;
+
+    // Smooth transition
+    mainStageImg.style.opacity = '0';
+    mainStageImg.style.transform = 'scale(0.97)';
+
+    setTimeout(() => {
+      mainStageImg.src = galleryList[activeIndex];
+      mainStageImg.style.opacity = '1';
+      mainStageImg.style.transform = 'scale(1)';
+    }, 180);
+
+    if (counterCurrent) counterCurrent.textContent = String(activeIndex + 1).padStart(2, '0');
+
+    // Update active thumb
+    const thumbs = thumbsContainer.querySelectorAll('.gallery-thumb-item');
+    thumbs.forEach((th, i) => {
+      th.classList.toggle('active', i === activeIndex);
+    });
+  }
+
+  function nextSlide() {
+    const nextIdx = (activeIndex + 1) % galleryList.length;
+    setSlide(nextIdx);
+  }
+
+  function prevSlide() {
+    const prevIdx = (activeIndex - 1 + galleryList.length) % galleryList.length;
+    setSlide(prevIdx);
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      resetAutoPlay();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      resetAutoPlay();
+    });
+  }
+
+  if (fullscreenBtn) {
+    fullscreenBtn.addEventListener('click', () => {
+      openLightbox(galleryList[activeIndex]);
+    });
+  }
+
+  if (stageFrame) {
+    stageFrame.addEventListener('click', (e) => {
+      if (!e.target.closest('button')) {
+        openLightbox(galleryList[activeIndex]);
+      }
+    });
+
+    // Pause autoplay on mouse hover
+    stageFrame.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+    stageFrame.addEventListener('mouseleave', () => startAutoPlay());
+  }
+
+  // Keyboard navigation when gallery is in view
+  document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox && lightbox.classList.contains('active')) return;
+
+    if (e.key === 'ArrowRight') {
+      nextSlide();
+      resetAutoPlay();
+    } else if (e.key === 'ArrowLeft') {
+      prevSlide();
+      resetAutoPlay();
     }
+  });
 
-    // Clear track
-    galleryTrack.innerHTML = '';
+  function startAutoPlay() {
+    clearInterval(autoPlayInterval);
+    autoPlayInterval = setInterval(nextSlide, 5000);
+  }
 
-    // If no images defined, show placeholder
-    if (galleryImages.length === 0) {
-        console.warn("No images in galleryImages array.");
-        return;
-    }
+  function resetAutoPlay() {
+    clearInterval(autoPlayInterval);
+    startAutoPlay();
+  }
 
-    // Duplicate sets for infinite marquee effect
-    // We need enough items to fill the screen twice
-    const setsToCreate = 4;
-
-    for (let i = 0; i < setsToCreate; i++) {
-        galleryImages.forEach(src => {
-            const item = document.createElement('div');
-            item.className = 'gallery-item';
-
-            const img = document.createElement('img');
-            // Use relative path
-            img.src = src;
-            img.alt = "Galería Magallanes";
-            img.loading = "lazy";
-
-            img.onerror = () => {
-                console.error("Failed to load image:", img.src);
-            };
-
-            item.appendChild(img);
-            item.onclick = () => openLightbox(img.src);
-            galleryTrack.appendChild(item);
-        });
-    }
-
-    console.log("Gallery populated with", galleryTrack.children.length, "items.");
+  // Initial load
+  setSlide(0);
+  startAutoPlay();
 }
 
+// Lightbox logic
 function openLightbox(src) {
-    console.log("Opening lightbox for:", src);
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    if (!lightbox || !lightboxImg) {
-        console.error("Lightbox elements not found");
-        return;
-    }
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  if (!lightbox || !lightboxImg) return;
 
-    lightboxImg.src = src;
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
+  lightboxImg.src = src;
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
-    const lightbox = document.getElementById('lightbox');
-    if (!lightbox) return;
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
+  const lightbox = document.getElementById('lightbox');
+  if (!lightbox) return;
+  lightbox.classList.remove('active');
+  document.body.style.overflow = '';
 }
 
-// Global Event Listeners for Lightbox
 function setupLightboxListeners() {
-    const lightbox = document.getElementById('lightbox');
-    const closeBtn = document.querySelector('.lightbox-close');
+  const lightbox = document.getElementById('lightbox');
+  const closeBtn = document.querySelector('.lightbox-close');
 
-    if (closeBtn) {
-        closeBtn.onclick = (e) => {
-            e.stopPropagation();
-            closeLightbox();
-        };
-    }
+  if (closeBtn) {
+    closeBtn.onclick = (e) => {
+      e.stopPropagation();
+      closeLightbox();
+    };
+  }
 
-    if (lightbox) {
-        lightbox.onclick = (e) => {
-            if (e.target === lightbox) closeLightbox();
-        };
-    }
+  if (lightbox) {
+    lightbox.onclick = (e) => {
+      if (e.target === lightbox) closeLightbox();
+    };
+  }
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeLightbox();
-    });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
 }
 
-// Init
-// ES Modules are deferred, but we check readyState to be safe
+// Initialize
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    initGallery();
-    setupLightboxListeners();
+  initDynamicGallery();
+  setupLightboxListeners();
 } else {
-    document.addEventListener('DOMContentLoaded', () => {
-        initGallery();
-        setupLightboxListeners();
-    });
+  document.addEventListener('DOMContentLoaded', () => {
+    initDynamicGallery();
+    setupLightboxListeners();
+  });
 }

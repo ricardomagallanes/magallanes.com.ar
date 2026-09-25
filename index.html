@@ -103,14 +103,14 @@
     }
   </script>
 
-  <!-- Fonts -->
+  <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Rajdhani:wght@500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap"
     rel="stylesheet">
 
-  <!-- Styles -->
+  <!-- Core Styles -->
   <link rel="stylesheet" href="css/style.css">
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -119,13 +119,26 @@
 </head>
 
 <body>
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress-bar" id="scroll-progress"></div>
+
+  <!-- Space Particle Canvas -->
+  <canvas id="space-canvas"></canvas>
+
+  <!-- Engineering Grid Backdrop -->
+  <div class="engineering-grid"></div>
 
   <!-- Header -->
-  <header>
+  <header id="main-header">
     <div class="container">
       <a href="#" class="logo">
-        <img src="assets/logo/logo_mag_2026_nobg.png" alt="Magallanes Logo" class="logo-img">
-        <span class="logo-text">MAGALLANES</span>
+        <div class="logo-glow-wrapper">
+          <img src="assets/logo/logo_mag_2026_nobg.png" alt="Magallanes Logo" class="logo-img">
+        </div>
+        <div class="logo-text-group">
+          <span class="logo-text">MAGALLANES</span>
+          <span class="logo-tag" data-i18n="header.logo_tag">Propulsión Aeronáutica</span>
+        </div>
       </a>
 
       <button class="hamburger" id="hamburger-btn" aria-label="Menú">
@@ -138,167 +151,369 @@
         <ul>
           <li><a href="#hero" data-i18n="nav.home">Inicio</a></li>
           <li><a href="#innovacion" data-i18n="nav.innov">Innovación</a></li>
+          <li><a href="#modelo-3d" data-i18n="nav.model3d">Modelo 3D</a></li>
           <li><a href="#ficha" data-i18n="nav.specs">Ficha Técnica</a></li>
+          <li><a href="#galeria" data-i18n="nav.gallery">Galería</a></li>
+          <li><a href="#testimonios" data-i18n="nav.presentations">Presentaciones</a></li>
           <li><a href="#contacto" data-i18n="nav.contact">Contacto</a></li>
         </ul>
       </nav>
 
-      <div class="lang-dropdown">
-        <button class="lang-dropdown-btn">
-          <span class="btn-label" data-i18n="nav.lang">Idioma</span>
-          <div class="current-lang">
-            <span id="current-lang-flag" class="fi fi-es"></span>
-            <span id="current-lang-label">Español</span>
-          </div>
-          <i class="fas fa-chevron-down"></i>
-        </button>
-        <div class="lang-options">
-          <div class="lang-option" data-lang="es">
-            <span class="fi fi-es"></span> Español
-          </div>
-          <div class="lang-option" data-lang="en">
-            <span class="fi fi-us"></span> English
-          </div>
-          <div class="lang-option" data-lang="de">
-            <span class="fi fi-de"></span> Deutsch
-          </div>
-          <div class="lang-option" data-lang="it">
-            <span class="fi fi-it"></span> Italiano
-          </div>
-          <div class="lang-option" data-lang="pt">
-            <span class="fi fi-br"></span> Português
-          </div>
-          <div class="lang-option" data-lang="ja">
-            <span class="fi fi-jp"></span> 日本語
+      <div class="header-actions">
+        <div class="lang-dropdown">
+          <button class="lang-dropdown-btn">
+            <span class="btn-label" data-i18n="nav.lang">Idioma</span>
+            <div class="current-lang">
+              <span id="current-lang-flag" class="fi fi-es"></span>
+              <span id="current-lang-label">Español</span>
+            </div>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="lang-options">
+            <div class="lang-option" data-lang="es">
+              <span class="fi fi-es"></span> Español
+            </div>
+            <div class="lang-option" data-lang="en">
+              <span class="fi fi-us"></span> English
+            </div>
+            <div class="lang-option" data-lang="de">
+              <span class="fi fi-de"></span> Deutsch
+            </div>
+            <div class="lang-option" data-lang="it">
+              <span class="fi fi-it"></span> Italiano
+            </div>
+            <div class="lang-option" data-lang="pt">
+              <span class="fi fi-br"></span> Português
+            </div>
+            <div class="lang-option" data-lang="ja">
+              <span class="fi fi-jp"></span> 日本語
+            </div>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
+  <!-- Hero Section -->
   <section id="hero" class="hero">
-    <div class="hero-bg"></div>
+    <div class="hero-glow-orb orb-1"></div>
+    <div class="hero-glow-orb orb-2"></div>
+
     <div class="container hero-grid">
       <div class="hero-text">
+        <div class="tech-badge">
+          <span class="pulse-dot"></span>
+          <span data-i18n="hero.badge">Ingeniería Aeronáutica · TM-2600-R</span>
+        </div>
         <h1 data-i18n="hero.title">MAGALLANES</h1>
-        <h2 class="hero-subtitle" data-i18n="hero.subtitle">MOTORES DE AVIACIÓN</h2>
-        <div class="highlight-line"></div>
-        <p data-i18n="hero.desc">Propulsión aeronáutica de próxima generación. Potencia, seguridad y diseño modular.</p>
-        <a href="#ficha" class="btn primary-btn" data-i18n="hero.cta">Ver Especificaciones</a>
+        <h2 class="hero-subtitle">
+          <span class="text-white" data-i18n="hero.subtitle">MOTORES DE AVIACIÓN</span>
+          <span class="text-gradient" data-i18n="hero.subtitle_gradient">NUEVA GENERACIÓN</span>
+        </h2>
+        <p class="hero-desc" data-i18n="hero.desc">
+          Propulsión aeronáutica de nueva generación. Potencia, seguridad certificada y diseño modular concebido para la aviación de alta exigencia.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#ficha" class="btn primary-btn" data-i18n="hero.cta">
+            <i class="fas fa-microchip"></i> Ver Especificaciones
+          </a>
+          <a href="#modelo-3d" class="btn btn-secondary" data-i18n="hero.cta_3d">
+            <i class="fas fa-cube"></i> Explorar en 3D
+          </a>
+        </div>
+
+        <!-- Telemetry Data Strip -->
+        <div class="hero-telemetry">
+          <div class="telemetry-item">
+            <span class="telemetry-val">6 <span class="unit" data-i18n="hero.unit_cyl">CIL</span></span>
+            <span class="telemetry-label">Configuración Boxer</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-val">2600 <span class="unit">CC</span></span>
+            <span class="telemetry-label">Cilindrada DOHC</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-val">122 <span class="unit" data-i18n="hero.unit_hp">HP</span></span>
+            <span class="telemetry-label">Potencia Estimada</span>
+          </div>
+        </div>
       </div>
+
+      <!-- Hero Visual with 3D Tilt HUD -->
       <div class="hero-visual">
-        <div class="tech-frame">
-          <img src="assets/2-2048x1539.png" alt="Motor Magallanes TM-2600" class="hero-img">
-          <div class="frame-corner c-tl"></div>
-          <div class="frame-corner c-tr"></div>
-          <div class="frame-corner c-bl"></div>
-          <div class="frame-corner c-br"></div>
+        <div class="hologram-stage">
+          <div class="hud-ring"></div>
+          <div class="interactive-tilt-card tech-frame" id="hero-tilt-card">
+            <div class="hud-tag top-right">
+              <i class="fas fa-shield-alt icon-pulse"></i>
+              <span data-i18n="hero.hud_tag1">NORMATIVA FAR 33</span>
+            </div>
+            <img src="assets/2-2048x1539.png" alt="Motor Magallanes TM-2600" class="hero-img">
+            <div class="hud-tag bottom-left">
+              <i class="fas fa-bolt icon-pulse"></i>
+              <span data-i18n="hero.hud_tag2">ENCENDIDO REDUNDANTE</span>
+            </div>
+
+            <div class="frame-corner c-tl"></div>
+            <div class="frame-corner c-tr"></div>
+            <div class="frame-corner c-bl"></div>
+            <div class="frame-corner c-br"></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Innovacion -->
+  <!-- Innovacion y Desarrollo -->
   <section id="innovacion" class="section">
     <div class="container">
-      <h2 class="section-title" data-i18n="innov.title">Innovación y Desarrollo</h2>
+      <div class="section-header">
+        <span class="section-eyebrow">Ingeniería Aeroespacial</span>
+        <h2 class="section-title" data-i18n="innov.title">Innovación y Desarrollo</h2>
+        <p class="section-subtitle">Diseño estructural optimizado para rendimiento térmico, fiabilidad mecánica y bajo mantenimiento.</p>
+      </div>
+
       <div class="grid-3">
-        <article class="card">
+        <article class="tech-card card">
+          <div class="card-icon-box">
+            <i class="fas fa-cubes"></i>
+          </div>
           <h3 data-i18n="innov.c1_title">Arquitectura Modular</h3>
-          <p data-i18n="innov.c1_desc">Diseño innovador que mejora la potencia y duración.</p>
+          <p data-i18n="innov.c1_desc">Diseño innovador que mejora la potencia y duración, garantizando máxima seguridad en vuelo con mantenimiento simplificado.</p>
         </article>
-        <article class="card">
+
+        <article class="tech-card card">
+          <div class="card-icon-box">
+            <i class="fas fa-certificate"></i>
+          </div>
           <h3 data-i18n="innov.c2_title">Calidad Certificada</h3>
-          <p data-i18n="innov.c2_desc">Componentes de proveedores líderes y mano de obra calificada.</p>
+          <p data-i18n="innov.c2_desc">Componentes de proveedores líderes aeronáuticos mundiales y mano de obra altamente calificada bajo estrictos estándares.</p>
         </article>
-        <article class="card">
+
+        <article class="tech-card card">
+          <div class="card-icon-box">
+            <i class="fas fa-shield-halved"></i>
+          </div>
           <h3 data-i18n="innov.c3_title">Seguridad Operacional</h3>
-          <p data-i18n="innov.c3_desc">Doble encendido con magneto aeronáutico.</p>
+          <p data-i18n="innov.c3_desc">Doble encendido con magneto aeronáutico y bujía doble. Redundancia crítica y estricto cumplimiento de normas FAR 33.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- Ficha Tecnica -->
+  <!-- Modelo 3D Interactivo -->
+  <section id="modelo-3d" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow" data-i18n="model3d.eyebrow">Inspección 3D Interactiva</span>
+        <h2 class="section-title" data-i18n="model3d.title">Visualizador Tridimensional TM-2600-R</h2>
+        <p class="section-subtitle" data-i18n="model3d.subtitle">Explore la arquitectura y disposición del motor boxer de 6 cilindros en tiempo real. Rote en 360°, acerque y examine cada componente de ingeniería.</p>
+      </div>
+
+      <!-- 3D Interactive Card Showcase -->
+      <div class="model-3d-card" id="model-3d-card">
+        <div class="model-3d-hud-header">
+          <div class="hud-model-info">
+            <span class="pulse-dot"></span>
+            <span class="hud-model-name">TM-2600-R · BOXER 6 CIL</span>
+            <span class="hud-model-badge" data-i18n="model3d.badge_format">Geometría CAD de Alta Precisión</span>
+          </div>
+          <div class="hud-model-dims" data-i18n="model3d.dimensions">
+            Dimensiones: 884 mm (Largo) × 826 mm (Ancho) × 591 mm (Alto)
+          </div>
+        </div>
+
+        <!-- WebGL Canvas Container -->
+        <div class="engine-3d-canvas-wrapper" id="engine-3d-canvas-container">
+          <!-- Loading Overlay -->
+          <div class="model-3d-loading" id="model-3d-loading">
+            <div class="spinner-3d"></div>
+            <span class="loading-label">Cargando modelo 3D... <span id="model-3d-progress">0%</span></span>
+          </div>
+        </div>
+
+        <!-- 3D Controls Toolbar -->
+        <div class="model-3d-toolbar">
+          <div class="toolbar-actions">
+            <button class="tool-btn active" id="btn-3d-rotate" title="Girar automáticamente">
+              <i class="fas fa-sync-alt"></i>
+              <span data-i18n="model3d.rotate">Giro Automático</span>
+            </button>
+            <button class="tool-btn" id="btn-3d-reset" title="Restablecer vista inicial">
+              <i class="fas fa-undo"></i>
+              <span data-i18n="model3d.reset">Restablecer Vista</span>
+            </button>
+            <button class="tool-btn" id="btn-3d-fullscreen" title="Pantalla completa">
+              <i class="fas fa-expand"></i>
+              <span data-i18n="model3d.fullscreen">Pantalla Completa</span>
+            </button>
+          </div>
+          <div class="toolbar-hint">
+            <i class="fas fa-hand-pointer"></i>
+            <span data-i18n="model3d.hint">Arrastre para rotar en 360° · Rueda o pellizco para zoom · Clic secundario para desplazar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ficha Tecnica Cockpit Matrix -->
   <section id="ficha" class="section">
     <div class="container">
-      <h2 class="section-title" data-i18n="specs.title">Ficha Técnica</h2>
-      <div class="specs-container">
-        <div class="spec-row">
-          <span class="spec-label" data-i18n="specs.cylinders">Cilindros</span>
-          <span class="spec-value" data-i18n="specs.val_cyl">6</span>
+      <div class="section-header">
+        <span class="section-eyebrow" data-i18n="specs.eyebrow">Especificaciones de Propulsión</span>
+        <h2 class="section-title" data-i18n="specs.title">Ficha Técnica TM-2600</h2>
+        <p class="section-subtitle" data-i18n="specs.subtitle">Parámetros técnicos de alta precisión desarrollados para aviación experimental y certificada.</p>
+      </div>
+
+      <div class="specs-cockpit">
+        <div class="cockpit-header-bar">
+          <div class="cockpit-title">
+            <i class="fas fa-sliders-h"></i>
+            <span data-i18n="specs.header_title">Especificaciones</span>
+          </div>
+          <div class="cockpit-indicator">
+            <span class="pulse-dot"></span>
+            <span data-i18n="specs.active_indicator">Ficha Técnica Activa</span>
+          </div>
         </div>
-        <div class="spec-row">
-          <span class="spec-label" data-i18n="specs.disp">Cilindrada</span>
-          <span class="spec-value" data-i18n="specs.val_disp">2600 cc</span>
+
+        <div class="specs-grid">
+          <div class="spec-cell">
+            <span class="spec-label"><i class="fas fa-cog"></i> <span data-i18n="specs.cylinders">Cilindros</span></span>
+            <span class="spec-value" data-i18n="specs.val_cyl">6</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label"><i class="fas fa-tachometer-alt"></i> <span data-i18n="specs.disp">Cilindrada</span></span>
+            <span class="spec-value" data-i18n="specs.val_disp">2600 cc (162 in³)</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label"><i class="fas fa-layer-group"></i> <span data-i18n="specs.config">Configuración</span></span>
+            <span class="spec-value" data-i18n="specs.val_config">Boxer DOHC</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label"><i class="fas fa-wind"></i> <span data-i18n="specs.cooling">Enfriamiento</span></span>
+            <span class="spec-value" data-i18n="specs.val_cooling">Refrigerado por Aire</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label"><i class="fas fa-gas-pump"></i> <span data-i18n="specs.carb">Carburador</span></span>
+            <span class="spec-value" data-i18n="specs.val_carb">Marvel Schebler de Aspiración Natural</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label"><i class="fas fa-sync-alt"></i> <span data-i18n="specs.prop_shaft">Árbol Portahélice</span></span>
+            <span class="spec-value" data-i18n="specs.val_prop_shaft">Con Reductor</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label"><i class="fas fa-circle-notch"></i> <span data-i18n="specs.flange">Platina de Hélice</span></span>
+            <span class="spec-value" data-i18n="specs.val_flange">Estándar SAE2</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label"><i class="fas fa-bolt"></i> <span data-i18n="specs.ignition">Encendido</span></span>
+            <span class="spec-value" data-i18n="specs.val_ignition">Redundante</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label"><i class="fas fa-plug"></i> <span data-i18n="specs.spark">Sistema Eléctrico</span></span>
+            <span class="spec-value" data-i18n="specs.val_spark">Magneto y Bujías Aeronáuticas</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label"><i class="fas fa-oil-can"></i> <span data-i18n="specs.sump">Lubricación</span></span>
+            <span class="spec-value" data-i18n="specs.val_sump">Cárter Seco</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label"><i class="fas fa-fan"></i> <span data-i18n="specs.prop_config">Configuración Hélice</span></span>
+            <span class="spec-value" data-i18n="specs.val_prop_config">Tractor o Pusher</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-label"><i class="fas fa-balance-scale"></i> <span data-i18n="specs.reg">Normativa</span></span>
+            <span class="spec-value" data-i18n="specs.val_reg">FAR 33</span>
+          </div>
         </div>
-        <div class="spec-row">
-          <span class="spec-label" data-i18n="specs.config">Configuración</span>
-          <span class="spec-value" data-i18n="specs.val_config">Boxer DOHC</span>
+      </div>
+
+      <!-- Documentación Técnica Integrada debajo de las Especificaciones -->
+      <div class="docs-showcase-panel" id="documentacion">
+        <div class="docs-showcase-header">
+          <div class="docs-showcase-title-group">
+            <span class="section-eyebrow" data-i18n="docs.eyebrow">Descarga & Certificación</span>
+            <h3 class="docs-panel-title" data-i18n="docs.title">Documentación Técnica</h3>
+            <p class="docs-panel-desc" data-i18n="docs.desc">Explore el detalle completo de las capacidades y curvas de rendimiento de nuestros motores.</p>
+          </div>
+          <a href="assets/docs/2024 - Caracteristicas Tecnicas TM-2600-R.pdf" download class="btn primary-btn download-docs-btn">
+            <i class="fas fa-file-pdf"></i> <span data-i18n="docs.download">Descargar PDF</span>
+          </a>
         </div>
-        <div class="spec-row">
-          <span class="spec-label" data-i18n="specs.cooling">Enfriamiento</span>
-          <span class="spec-value" data-i18n="specs.val_cooling">Aire (Aircooled)</span>
-        </div>
-        <div class="spec-row">
-          <span class="spec-label" data-i18n="specs.carb">Carburador</span>
-          <span class="spec-value" data-i18n="specs.val_carb">Marvel Schebler</span>
-        </div>
-        <div class="spec-row">
-          <span class="spec-label" data-i18n="specs.prop_shaft">Árbol Portahélice</span>
-          <span class="spec-value" data-i18n="specs.val_prop_shaft">Con Reductor</span>
-        </div>
-        <div class="spec-row">
-          <span class="spec-label" data-i18n="specs.flange">Platina</span>
-          <span class="spec-value" data-i18n="specs.val_flange">SAE2 Estándar</span>
-        </div>
-        <div class="spec-row">
-          <span class="spec-label" data-i18n="specs.ignition">Encendido</span>
-          <span class="spec-value" data-i18n="specs.val_ignition">Doble</span>
-        </div>
-        <div class="spec-row">
-          <span class="spec-label" data-i18n="specs.spark">Sistema</span>
-          <span class="spec-value" data-i18n="specs.val_spark">Magneto y Bujías</span>
-        </div>
-        <div class="spec-row">
-          <span class="spec-label" data-i18n="specs.sump">Lubricación</span>
-          <span class="spec-value" data-i18n="specs.val_sump">Carter Seco</span>
-        </div>
-        <div class="spec-row">
-          <span class="spec-label" data-i18n="specs.prop_config">Configuración</span>
-          <span class="spec-value" data-i18n="specs.val_prop_config">Tractor o Pusher</span>
-        </div>
-        <div class="spec-row">
-          <span class="spec-label" data-i18n="specs.reg">Normativa</span>
-          <span class="spec-value" data-i18n="specs.val_reg">FAR 33</span>
+
+        <div class="docs-preview-container" id="pdf-mini-click">
+          <iframe src="assets/docs/2024 - Caracteristicas Tecnicas TM-2600-R.pdf#toolbar=0&navpanes=0" class="docs-preview-iframe" style="pointer-events:none"></iframe>
+          <div class="docs-expand-banner">
+            <div class="expand-icon-badge">
+              <i class="fas fa-expand"></i>
+            </div>
+            <span data-i18n="docs.fullscreen_banner">Ver Ficha Técnica en Pantalla Completa</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Galeria -->
-  <section id="galeria" class="section gallery-section">
+  <!-- Galería Dinámica -->
+  <section id="galeria" class="section">
     <div class="container">
-      <h2 class="section-title" data-i18n="gallery.title">Galería de Imágenes</h2>
-
-      <div class="gallery-container">
-        <div id="gallery-track" class="gallery-track">
-          <!-- JS will populate this -->
-        </div>
+      <div class="section-header">
+        <span class="section-eyebrow" data-i18n="gallery.eyebrow">Registro Visual</span>
+        <h2 class="section-title" data-i18n="gallery.title">Galería de Imágenes</h2>
+        <p class="section-subtitle" data-i18n="gallery.subtitle">Registro fotográfico y vistas de detalle del motor aeronáutico Magallanes TM-2600-R.</p>
       </div>
 
+      <div class="dynamic-gallery-wrapper">
+        <!-- Main Dynamic Stage Frame -->
+        <div class="dynamic-gallery-stage" id="gallery-stage-frame">
+          <div class="gallery-hud-top">
+            <div class="gallery-counter">
+              <span id="gallery-counter-current">01</span>
+              <span class="counter-slash">/</span>
+              <span id="gallery-counter-total">04</span>
+            </div>
+            <button class="gallery-fullscreen-btn" id="gallery-fullscreen-btn" aria-label="Pantalla completa" title="Ampliar imagen">
+              <i class="fas fa-expand-alt"></i>
+            </button>
+          </div>
+
+          <div class="gallery-img-container">
+            <img id="gallery-stage-img" class="gallery-stage-img" src="assets/galeria/2.jpg" alt="Motor Magallanes">
+          </div>
+
+          <div class="gallery-hud-bottom">
+            <button class="gallery-arrow-btn" id="gallery-prev-btn" aria-label="Anterior">
+              <i class="fas fa-arrow-left"></i>
+            </button>
+            <span class="gallery-hint"><i class="fas fa-mouse-pointer"></i> <span data-i18n="gallery.hint">Haga clic para ampliar</span></span>
+            <button class="gallery-arrow-btn" id="gallery-next-btn" aria-label="Siguiente">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Thumbnails Strip -->
+        <div class="gallery-thumbs-track" id="gallery-thumbs-track">
+          <!-- Rendered dynamically by gallery.js -->
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Testimonios -->
-  <section id="testimonios" class="section section-dark">
+  <!-- Presentaciones y Testimonios -->
+  <section id="testimonios" class="section">
     <div class="container">
-      <h2 class="section-title">Presentaciones y Testimonios</h2>
+      <div class="section-header">
+        <span class="section-eyebrow">Validación & Prensa</span>
+        <h2 class="section-title">Presentaciones y Testimonios</h2>
+        <p class="section-subtitle">Demostraciones en vivo de puesta en marcha, cobertura técnica y divulgación en congresos aeroespaciales.</p>
+      </div>
 
-      <!-- Videos -->
+      <!-- Videos Grid -->
       <div class="testimonial-videos-grid">
-
         <div class="testimonial-video-card">
           <div class="video-wrapper">
             <iframe src="https://www.youtube.com/embed/1wWc72pr69A" title="Magallanes TM-2600-R Motor Presentation"
@@ -323,15 +538,14 @@
           </div>
           <div class="video-caption">
             <h4 class="video-caption-title">Ingeniería Global</h4>
-            <p class="video-caption-sub">Entrevista realizada por la Lic. Mariana Aranguren</p>
+            <p class="video-caption-sub">Entrevista técnica realizada por la Lic. Mariana Aranguren</p>
           </div>
         </div>
-
       </div>
 
-      <!-- Testimonial Cards -->
+      <!-- Testimonial Cards & Technical Documentation -->
       <div class="testimonial-grid">
-        <!-- Card 1 -->
+        <!-- Card 1: EAA Convention -->
         <div class="testimonial-card">
           <h3>Destacados de la 40ª Convención EAA</h3>
           <p class="testimonial-subtitle">Raul Argentino Magallanes Motor TM-2600-R</p>
@@ -339,79 +553,75 @@
             Luego de su exposición en el Hangar 3 de la EAA, Magallanes realizó la puesta en marcha del prototipo de su
             motor con hélice, montado sobre un banco de pruebas móvil. El TM-2600-R es un motor aeronáutico "boxer" de 6
             cilindros, de 4 tiempos de 2600 cc, refrigerado por aire con doble árbol de levas a la cabeza. Con doble
-            sistema de encendido con magneto. La potencia que puede suministrar estaría entre los 120 a 150 hp.
+            sistema de encendido con magneto. La potencia que puede suministrar se proyecta entre los 120 a 150 hp.
           </p>
           <a href="https://www.facebook.com/watch/?v=643787626960788&ref=sharing" target="_blank"
             rel="noopener noreferrer" class="testimonial-link">
-            Ver más en Facebook →
+            Ver más en Facebook <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
-        <!-- Card 2 -->
+        <!-- Card 2: Chapter 722 -->
         <div class="testimonial-card">
           <h3>Presentación en Chapter 722</h3>
           <p class="testimonial-subtitle">Desarrollo Integral Motor 6 Cilindros Opuestos</p>
           <p class="testimonial-text">
-            Mediante una exposición a cargo de Lic. Raúl Argentino Magallanes, denominada "Desarrollo integral motor 6
-            cilindros opuestos para uso aeronáutico", llevada a cabo en el pabellón de proyectos, del Chapter 722. La
-            organización I+D, permitió que el público en general, acceda a conocer detalles del prometedor sistema
-            propulsivo.
+            Mediante una exposición a cargo del Lic. Raúl Argentino Magallanes, denominada "Desarrollo integral motor 6
+            cilindros opuestos para uso aeronáutico", llevada a cabo en el pabellón de proyectos del Chapter 722. La
+            organización I+D permitió que la comunidad aeronáutica accediera a los planos y arquitectura de este prometedor sistema propulsivo.
           </p>
           <a href="https://www.fullaviacion.com.ar/presentacion-del-motor-prototipo-tm-2600-r/" target="_blank"
             rel="noopener noreferrer" class="testimonial-link">
-            Leer artículo completo →
+            Leer artículo completo <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
-        <!-- Card 3 - CAIA Congress -->
+        <!-- Card 3: CAIA Congress Image -->
         <div class="testimonial-card testimonial-card-image">
           <div class="testimonial-image-wrapper">
             <img src="assets/presentaciones/Caia1.jpg" alt="CAIA 8 - Congreso Argentino de Ingeniería Aeronáutica" />
           </div>
           <p class="testimonial-caption">
-            Estuvimos presentes en el 8vo. Congreso Argentino de Ingeniería Aeronáutica (CAIA 8)
+            Participación destacada en el 8vo. Congreso Argentino de Ingeniería Aeronáutica (CAIA 8).
           </p>
-        </div>
-
-        <!-- Card 4 - PDF Documentation -->
-        <div class="testimonial-card pdf-card" id="pdf-doc-card">
-          <button class="card-close-btn" onclick="document.getElementById('pdf-doc-card').style.display='none'"
-            title="Descartar">
-            <i class="fas fa-times"></i>
-          </button>
-          <h3 data-i18n="docs.title">Documentación Técnica</h3>
-          <div class="pdf-mini-container" id="pdf-mini-click" style="cursor:pointer;position:relative">
-            <iframe src="assets/docs/2024 - Caracteristicas Tecnicas TM-2600-R.pdf#toolbar=0&navpanes=0"
-              class="pdf-mini-iframe" style="pointer-events:none"></iframe>
-            <div class="pdf-expand-overlay">
-              <i class="fas fa-expand"></i>
-              <span>Ver en pantalla completa</span>
-            </div>
-          </div>
-          <a href="assets/docs/2024 - Caracteristicas Tecnicas TM-2600-R.pdf" download
-            class="btn primary-btn download-btn-mini">
-            <i class="fas fa-download"></i> <span data-i18n="docs.download">Descargar PDF</span>
-          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contacto -->
+  <!-- Contacto & Misión -->
   <section id="contacto" class="section">
     <div class="container">
-      <h2 class="section-title" data-i18n="contact.title">Contacto</h2>
+      <div class="section-header">
+        <span class="section-eyebrow">Línea Directa</span>
+        <h2 class="section-title" data-i18n="contact.title">Contacto</h2>
+        <p class="section-subtitle">Hable directamente con el equipo de diseño y desarrollo de motores Magallanes.</p>
+      </div>
+
       <div class="contact-grid">
         <div class="contact-info">
-          <p data-i18n="contact.desc">¿Interesado? Contáctenos.</p>
-          <br>
-          <div class="contact-item">
-            <strong>Email:</strong>
-            <a href="mailto:contacto@magallanes.com.ar" data-i18n="contact.email">contacto@magallanes.com.ar</a>
-          </div>
-          <div class="contact-item">
-            <strong>Tel:</strong>
-            <a href="tel:+543518812226" data-i18n="contact.phone">+54 351 8812226</a>
+          <p class="contact-lead" data-i18n="contact.desc">¿Interesado en nuestros motores o desea una cotización técnica? Contáctenos hoy.</p>
+          
+          <div class="contact-channels">
+            <a href="mailto:contacto@magallanes.com.ar" class="contact-channel-card">
+              <div class="channel-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="channel-details">
+                <span class="channel-label">Correo Oficial</span>
+                <span class="channel-value" data-i18n="contact.email">contacto@magallanes.com.ar</span>
+              </div>
+            </a>
+
+            <a href="tel:+543518812226" class="contact-channel-card">
+              <div class="channel-icon">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div class="channel-details">
+                <span class="channel-label">Teléfono Directo</span>
+                <span class="channel-value" data-i18n="contact.phone">+54 351 8812226</span>
+              </div>
+            </a>
           </div>
         </div>
 
@@ -436,9 +646,11 @@
     </div>
   </section>
 
+  <!-- Footer -->
   <footer>
-    <div class="container">
-      <p>&copy; 2026 Magallanes Motores de Aviación. All rights reserved.</p>
+    <div class="container footer-content">
+      <p>&copy; 2026 Magallanes Motores de Aviación. <span data-i18n="footer.rights">Todos los derechos reservados.</span></p>
+      <span class="footer-tech-tag"><i class="fas fa-plane"></i> <span data-i18n="footer.tagline">Sistemas de Propulsión Aeronáutica de Nueva Generación</span></span>
     </div>
   </footer>
 
@@ -455,33 +667,105 @@
       <iframe id="pdf-lightbox-iframe" src="" class="pdf-lightbox-iframe"></iframe>
     </div>
     <a id="pdf-lightbox-download" href="" download class="btn primary-btn pdf-lightbox-download">
-      <i class="fas fa-download"></i> Descargar PDF
+      <i class="fas fa-download"></i> <span data-i18n="docs.fullscreen_btn">Descargar PDF</span>
     </a>
   </div>
 
-
+  <!-- Scripts -->
   <script type="module" src="js/i18n.js"></script>
   <script type="module" src="js/gallery.js"></script>
+  <script type="module" src="js/model3d.js"></script>
+
+  <!-- Interactive Experience Script -->
   <script>
-    // Mobile hamburger menu toggle
-    console.log("Inline scripts loading...");
+    // Header Scroll state & Scroll Progress Bar
+    const header = document.getElementById('main-header');
+    const progressBar = document.getElementById('scroll-progress');
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollY / docHeight) * 100;
+      
+      if (progressBar) progressBar.style.width = `${progress}%`;
+      if (header) {
+        if (scrollY > 40) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }
+    });
+
+    // Mobile Hamburger Menu
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const mainNav = document.getElementById('main-nav');
 
-    hamburgerBtn.addEventListener('click', () => {
-      hamburgerBtn.classList.toggle('active');
-      mainNav.classList.toggle('open');
-    });
-
-    // Close menu when a nav link is clicked
-    mainNav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburgerBtn.classList.remove('active');
-        mainNav.classList.remove('open');
+    if (hamburgerBtn && mainNav) {
+      hamburgerBtn.addEventListener('click', () => {
+        hamburgerBtn.classList.toggle('active');
+        mainNav.classList.toggle('open');
       });
-    });
-  </script>
-  <script>
+
+      mainNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburgerBtn.classList.remove('active');
+          mainNav.classList.remove('open');
+        });
+      });
+    }
+
+    // 3D Card Interactive Tilt Effect for Hero Engine Visual
+    const tiltCard = document.getElementById('hero-tilt-card');
+    if (tiltCard && window.matchMedia('(pointer: fine)').matches) {
+      tiltCard.addEventListener('mousemove', (e) => {
+        const rect = tiltCard.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((y - centerY) / centerY) * -12;
+        const rotateY = ((x - centerX) / centerX) * 12;
+        
+        tiltCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
+
+      tiltCard.addEventListener('mouseleave', () => {
+        tiltCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    }
+
+    // Hero Image Lightbox Trigger
+    const heroImg = document.querySelector('.hero-img');
+    const mainLightbox = document.getElementById('lightbox');
+    const mainLightboxImg = document.getElementById('lightbox-img');
+
+    if (tiltCard && heroImg && mainLightbox && mainLightboxImg) {
+      function closeMainLightbox() {
+        mainLightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      tiltCard.addEventListener('click', (e) => {
+        if (e.target.closest('.hud-tag')) return;
+        mainLightboxImg.src = heroImg.src;
+        mainLightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+
+      const closeBtn = mainLightbox.querySelector('.lightbox-close');
+      if (closeBtn) closeBtn.addEventListener('click', closeMainLightbox);
+
+      mainLightbox.addEventListener('click', (e) => {
+        if (e.target === mainLightbox) closeMainLightbox();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMainLightbox();
+      });
+    }
+
     // PDF Fullscreen Lightbox
     const pdfSrc = 'assets/docs/2024 - Caracteristicas Tecnicas TM-2600-R.pdf';
     const pdfMiniClick = document.getElementById('pdf-mini-click');
@@ -491,16 +775,20 @@
     const pdfLightboxDownload = document.getElementById('pdf-lightbox-download');
 
     function openPdfFullscreen() {
-      pdfLightboxIframe.src = pdfSrc;
-      pdfLightboxDownload.href = pdfSrc;
-      pdfLightbox.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      if (pdfLightboxIframe && pdfLightboxDownload && pdfLightbox) {
+        pdfLightboxIframe.src = pdfSrc;
+        pdfLightboxDownload.href = pdfSrc;
+        pdfLightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
     }
 
     function closePdfFullscreen() {
-      pdfLightbox.classList.remove('active');
-      pdfLightboxIframe.src = '';
-      document.body.style.overflow = '';
+      if (pdfLightbox && pdfLightboxIframe) {
+        pdfLightbox.classList.remove('active');
+        pdfLightboxIframe.src = '';
+        document.body.style.overflow = '';
+      }
     }
 
     if (pdfMiniClick) pdfMiniClick.addEventListener('click', openPdfFullscreen);
@@ -511,41 +799,65 @@
       });
     }
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && pdfLightbox.classList.contains('active')) closePdfFullscreen();
+      if (e.key === 'Escape' && pdfLightbox && pdfLightbox.classList.contains('active')) closePdfFullscreen();
     });
-  </script>
-  <script>
-    // Hero Image Lightbox
-    const heroVisual = document.querySelector('.tech-frame');
-    const heroImg = document.querySelector('.hero-img');
-    const mainLightbox = document.getElementById('lightbox');
-    const mainLightboxImg = document.getElementById('lightbox-img');
 
-    if (heroVisual && heroImg && mainLightbox && mainLightboxImg) {
-      function closeMainLightbox() {
-        mainLightbox.classList.remove('active');
-        document.body.style.overflow = '';
+    // Space Particles Canvas Background
+    const canvas = document.getElementById('space-canvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      let w, h;
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * w;
+          this.y = Math.random() * h;
+          this.size = Math.random() * 1.5 + 0.5;
+          this.speedX = (Math.random() - 0.5) * 0.25;
+          this.speedY = (Math.random() - 0.5) * 0.25;
+          this.alpha = Math.random() * 0.6 + 0.2;
+          this.color = Math.random() > 0.3 ? '#38BDF8' : '#F59E0B';
+        }
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          if (this.x < 0 || this.x > w || this.y < 0 || this.y > h) {
+            this.reset();
+          }
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.globalAlpha = this.alpha;
+          ctx.fill();
+        }
       }
 
-      heroVisual.addEventListener('click', () => {
-        mainLightboxImg.src = heroImg.src;
-        mainLightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      });
+      for (let i = 0; i < 45; i++) {
+        particles.push(new Particle());
+      }
 
-      // Close button logic
-      const closeBtn = mainLightbox.querySelector('.lightbox-close');
-      if (closeBtn) closeBtn.addEventListener('click', closeMainLightbox);
-
-      // Background click logic
-      mainLightbox.addEventListener('click', (e) => {
-        if (e.target === mainLightbox) closeMainLightbox();
-      });
-
-      // Escape key logic
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeMainLightbox();
-      });
+      function animate() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        requestAnimationFrame(animate);
+      }
+      animate();
     }
   </script>
 </body>
